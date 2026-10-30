@@ -1,5 +1,5 @@
 /*
- * USART0 MODULE (9600 8N1 UART) - Rewritten implementation overview
+ * USART0 MODULE (9600 8N1 UART)
  *
  * What this module does:
  * - Sets up AVR USART0 for async serial at 9600 baud.

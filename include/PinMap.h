@@ -1,11 +1,7 @@
 /*
  * BOARD PIN MAP
  *
- * Possible question: "Why keep pin maps in one file?"
- * Answer: If wiring changes, we edit this file only.
- *
- * Possible question: "What are DDR/PORT/PIN?"
- * Answer:
+ * Register cheat sheet:
  * - DDRx  : sets pin direction (1 output, 0 input)
  * - PORTx : writes output value or turns on pull-up
  * - PINx  : reads input value

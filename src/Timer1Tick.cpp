@@ -1,4 +1,4 @@
-//timer1 ~1 sec for countdown — not using delay() in loop for th at
+//timer1 ~1 sec for countdown — not using delay() in loop for that
 #include <Arduino.h>       // gives core register definitions
 #include <avr/interrupt.h> // gives ISR macro and cli function
 #include <stdint.h>        // gives uint8_t type

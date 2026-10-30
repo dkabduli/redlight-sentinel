@@ -1,14 +1,5 @@
 /*
  * TRAFFIC CONTROLLER MODULE
- *
- * Possible question: "Why so many static variables/functions?"
- * Answer: `static` keeps state/helpers private to this file.
- *
- * Possible question: "Where does this run from?"
- * Answer: Arduino `loop()` keeps calling `TrafficLight_step()`.
- *
- * Possible question: "Why uint8_t/uint16_t?"
- * Answer: Fixed-width types are predictable on embedded systems.
  */
 // traffic controller state machine and red light violation logic
 // zone far and near values are tuned thresholds for motion trigger
@@ -27,8 +18,6 @@
 typedef enum { PH_GREEN = 0, PH_AMBER, PH_RED } phase_t; // traffic phases in order
 
 // shared state for current phase, countdown, pause, and lcd override timing
-// Possible question: "What does static mean here?"
-// Answer: File-private storage (not visible in other .cpp files).
 static phase_t s_phase;                // current active phase
 static uint8_t s_sec_left;             // uint8_t: compact 0..255 countdown value
 static uint8_t s_running;              // uint8_t flag (1 running, 0 paused)
@@ -78,19 +67,13 @@ static void lcd_normal(void)
     // normal two line text for each traffic phase
     if (s_phase == PH_GREEN) {
         LCD_line1("Green: You are  "); // row1 phase text
-        // Defined in: src/LCD.cpp
         LCD_line2("free to go      "); // row2 instruction text
-        // Defined in: src/LCD.cpp
     } else if (s_phase == PH_AMBER) {
         LCD_line1("Yellow: stop soo"); // intentionally clipped phrase to fit style
-        // Defined in: src/LCD.cpp
         LCD_line2("                "); // clear second line
-        // Defined in: src/LCD.cpp
     } else {
         LCD_line1("Red: stop       "); // red phase warning
-        // Defined in: src/LCD.cpp
         LCD_line2("                "); // keep second row blank
-        // Defined in: src/LCD.cpp
     }
 }
 
@@ -110,7 +93,6 @@ void TrafficLight_init(void)
     s_armed = 1u;                // allow first red crossing detection
     leds_only_green();           // apply physical LED outputs
     SevenSeg_show_digit(s_sec_left); // show initial countdown value
-    // Defined in: src/SevenSeg.cpp
     lcd_normal();                // draw initial lcd message
 }
 
@@ -136,7 +118,6 @@ static void next_phase(void)
         leds_only_green();     // update led outputs
     }
     SevenSeg_show_digit(s_sec_left); // reflect new countdown start
-    // Defined in: src/SevenSeg.cpp
     lcd_normal();                    // refresh lcd for new phase
 }
 
@@ -151,7 +132,6 @@ static void tick_one_second(void)
     if (s_sec_left > 1u) {
         s_sec_left--;                   // consume one second from countdown
         SevenSeg_show_digit(s_sec_left); // update seven segment immediately
-        // Defined in: src/SevenSeg.cpp
         return;                          // done for this tick
     }
     next_phase(); // if timer reached end, switch phase and reload
@@ -163,19 +143,13 @@ static void handle_violation(uint16_t cm)
 {
     // visual and audio alert and serial log
     Buzzer_beep_once();             // short alert sound
-    // Defined in: src/Buzzer.cpp
     LCD_line1("Dude u ran it!  "); // show violation message line1
-    // Defined in: src/LCD.cpp
     LCD_line2("                "); // clear line2 during alert
-    // Defined in: src/LCD.cpp
     // keep alert text for two one second ticks
     s_violation_lcd_ticks = 2u;     // keep alert text for next 2 tick events
     USART0_print("VIOLATION dist="); // serial prefix
-    // Defined in: src/USART0.cpp
     USART0_print_u16(cm);           // measured distance value
-    // Defined in: src/USART0.cpp
     USART0_print(" cm\r\n");        // units plus newline
-    // Defined in: src/USART0.cpp
 }
 
 // --- red phase sensing helper ---
@@ -187,7 +161,6 @@ static void poll_red_camera(void)
         return; // only enforce crossing logic during active red phase
 
     uint16_t cm = Ultrasound_read_cm(); // sample distance from ultrasonic sensor
-    // Defined in: src/Ultrasonic.cpp
     // 0 means sensor timeout or invalid pulse
     if (cm == 0u)
         return; // ignore invalid timeout reads
@@ -209,29 +182,23 @@ static void poll_red_camera(void)
 // TrafficLight_step is called from loop and coordinates buttons timer and sensor.
 void TrafficLight_step(void)
 {
-    // Possible question: "Why is this called often and kept short?"
-    // Answer: To keep loop() non-blocking.
     // pause button toggles run state
     if (PCINT_consume_pause_click() != 0u)
-        // Defined in: src/PCINT_buttons.cpp
         s_running = (uint8_t)(1u - s_running); // toggle between 1 and 0
 
     // reset button returns system to initial green phase
     if (PCINT_consume_reset_click() != 0u) {
-        // Defined in: src/PCINT_buttons.cpp
         s_phase = PH_GREEN;            // reset phase to startup state
         s_sec_left = 10u;              // reset countdown
         s_running = 1u;                // ensure running resumes
         leds_only_green();             // reset LED outputs
         SevenSeg_show_digit(s_sec_left); // reset displayed digit
-        // Defined in: src/SevenSeg.cpp
         lcd_normal();                  // reset lcd text
         s_prev_cm = 999u;              // reset edge detector memory
         s_armed = 1u;                  // rearm violation detector
     }
     // one second heartbeat drives countdown and lcd timeout
     if (Timer1_consume_1s_tick() != 0u) {
-        // Defined in: src/Timer1Tick.cpp
         if (s_violation_lcd_ticks > 0u) {
             s_violation_lcd_ticks--; // consume one second of violation banner time
             if (s_violation_lcd_ticks == 0u)

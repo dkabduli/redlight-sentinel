@@ -1,0 +1,21 @@
+# PlatformIO build output
+.pio/
+
+# VS Code (keep only the shared extension recommendations)
+.vscode/*
+!.vscode/extensions.json
+
+# OS clutter
+.DS_Store
+
+# Large demo media (over GitHub's 100 MB limit; host on YouTube/Drive instead)
+*.MOV
+*.mov
+*.mp4
+*.zip
+
+# Office lock files
+~$*
+
+# Local study notes (kept off GitHub)
+.local-notes/

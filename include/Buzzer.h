@@ -1,8 +1,5 @@
 /*
  * BUZZER MODULE HEADER
- *
- * Possible question: "What is public here?"
- * Answer: These are the functions other files can call.
  */
 #ifndef BUZZER_H
 #define BUZZER_H

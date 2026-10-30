@@ -33,23 +33,23 @@ void GPIO_init(void)
 
     // buzzer pin out and start quiet
     out1(&BUZ_DDR, &BUZ_PORT, BUZ_BIT); // buzzer pin output low
-        BUZ_PORT &= (uint8_t) ~(1u << BUZ_BIT);
+    BUZ_PORT &= (uint8_t) ~(1u << BUZ_BIT);
     // trig fires pulse echo is input w pullup
     out1(&SONIC_TRIG_DDR, &SONIC_TRIG_PORT, SONIC_TRIG_BIT); // trigger output
     SONIC_TRIG_PORT &= (uint8_t) ~(1u << SONIC_TRIG_BIT); // keep trigger low
     in_pullup(&SONIC_ECHO_DDR, &SONIC_ECHO_PORT, SONIC_ECHO_BIT); // echo input pullup
     out1(&SR_SER_DDR, &SR_SER_PORT, SR_SER_BIT); // shift reg serial data output
-        out1(&SR_CLK_DDR, &SR_CLK_PORT, SR_CLK_BIT); // shift reg clock output
+    out1(&SR_CLK_DDR, &SR_CLK_PORT, SR_CLK_BIT); // shift reg clock output
     out1(&SR_RCK_DDR, &SR_RCK_PORT, SR_RCK_BIT); // shift reg latch output
     SR_SER_PORT &= (uint8_t) ~(1u << SR_SER_BIT); // start serial line low
     SR_CLK_PORT &= (uint8_t) ~(1u << SR_CLK_BIT); // start clock line low
     SR_RCK_PORT &= (uint8_t) ~(1u << SR_RCK_BIT); // start latch line low
-    // pause and reset buttons otherise theyll go ground
+    // pause and reset buttons otherwise they float
     in_pullup(&BTN_PAUSE_DDR, &BTN_PAUSE_PORT, BTN_PAUSE_BIT); // pause button input pullup
     in_pullup(&BTN_RESET_DDR, &BTN_RESET_PORT, BTN_RESET_BIT); // reset button input pullup
     out1(&LCD_RS_DDR, &LCD_RS_PORT, LCD_RS_BIT); // lcd RS output
     out1(&LCD_EN_DDR, &LCD_EN_PORT, LCD_EN_BIT); // lcd EN output
-     out1(&LCD_D4_DDR, &LCD_D4_PORT, LCD_D4_BIT); // lcd data bit 4 output
+    out1(&LCD_D4_DDR, &LCD_D4_PORT, LCD_D4_BIT); // lcd data bit 4 output
     out1(&LCD_D5_DDR, &LCD_D5_PORT, LCD_D5_BIT); // lcd data bit 5 output
     out1(&LCD_D6_DDR, &LCD_D6_PORT, LCD_D6_BIT); // lcd data bit 6 output
     out1(&LCD_D7_DDR, &LCD_D7_PORT, LCD_D7_BIT); // lcd data bit 7 output

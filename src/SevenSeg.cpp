@@ -1,5 +1,5 @@
 /*
- * SHIFT REGISTER DISPLAY MODULE (74HC595 + 7-segment) - Rewritten overview
+ * SHIFT REGISTER DISPLAY MODULE (74HC595 + 7-segment)
  *
  * Note:
  * - Shift-register logic is inside this SevenSeg module.

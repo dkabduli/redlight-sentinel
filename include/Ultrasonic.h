@@ -1,8 +1,5 @@
 /*
  * ULTRASONIC MODULE HEADER
- *
- * Possible question: "What is uint16_t here?"
- * Answer: It is an unsigned 16-bit type used for bigger distance values.
  */
 #ifndef ULTRASONIC_H
 #define ULTRASONIC_H

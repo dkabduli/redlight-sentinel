@@ -1,5 +1,5 @@
 /*
- * LCD MODULE HEADER - Rewritten contract
+ * LCD MODULE HEADER
  *
  * What this header defines:
  * - Public LCD API: init, clear, line1, line2.
@@ -12,9 +12,6 @@
  * Why structured this way:
  * - Include guards work across older AVR toolchains.
  * - Helper details stay private in the .cpp file.
- *
- * Possible question: "Why #ifndef instead of #pragma once?"
- * Answer: #ifndef is portable and safe on embedded compilers.
  */
 #ifndef LCD_H
 #define LCD_H

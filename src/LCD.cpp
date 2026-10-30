@@ -1,5 +1,5 @@
 /*
- * LCD MODULE (HD44780, 4-bit mode) - Rewritten implementation overview
+ * LCD MODULE (HD44780, 4-bit mode)
  *
  * What this module does:
  * - Drives a 16x2 HD44780 LCD in 4-bit mode.

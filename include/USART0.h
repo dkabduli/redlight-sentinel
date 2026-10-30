@@ -1,5 +1,5 @@
 /*
- * USART0 MODULE HEADER - Rewritten contract
+ * USART0 MODULE HEADER
  *
  * What this header defines:
  * - Public UART API for init and print.
@@ -12,9 +12,6 @@
  * Why structured this way:
  * - Include guards stop double include issues.
  * - Small API keeps UART internals hidden.
- *
- * Possible question: "Why is only a small API exposed?"
- * Answer: It keeps modules simple and avoids misuse.
  */
 #ifndef USART0_H
 #define USART0_H

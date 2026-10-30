@@ -1,8 +1,5 @@
 /*
  * BUTTON PCINT MODULE HEADER
- *
- * Possible question: "Why return uint8_t instead of bool?"
- * Answer: uint8_t is a clear 8-bit type and common in AVR code.
  */
 #ifndef PCINT_BUTTONS_H
 #define PCINT_BUTTONS_H

@@ -1,8 +1,5 @@
 /*
  * TIMER1 TICK MODULE HEADER
- *
- * Possible question: "Why have a 1 Hz tick module?"
- * Answer: It keeps timing separate from traffic logic.
  */
 #ifndef TIMER1TICK_H
 #define TIMER1TICK_H

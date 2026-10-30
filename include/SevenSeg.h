@@ -14,9 +14,6 @@
  * Why this style:
  * - Include guards stop double include issues.
  * - Details stay inside the .cpp file.
- *
- * Possible question: "Where is ShiftReg implemented?"
- * Answer: In SevenSeg.cpp with SER/CLK/RCK helper functions.
  */
 #ifndef SEVENSEG_H
 #define SEVENSEG_H
